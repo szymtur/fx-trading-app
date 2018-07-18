@@ -1,4 +1,4 @@
-const url = "https://api.myjson.com/bins/6gc26";
+const url = "https://api.myjson.com/bins/15j70u";
 
 
 function changePrice(data) {
@@ -22,18 +22,16 @@ function insertCurrency(data) {
     let buyH4 = $('.container').find('.buy h4');
     let sell = $('.container').find('.sell h2');
     let buy = $('.container').find('.buy h2');
-    let curPair = (data[0].pair).split(' ');
     
-    
-    console.log(curPair[0]);
-    
-    
-    header.text(data[0].pair);
-    sell.text(data[0].sell);
-    sellH4.text('Sell ' + curPair[0]);
-    buy.text(data[0].buy);
-    buyH4.text('Buy ' + curPair[1]);
-
+    for (let i=0; i<data.length; i++){
+        let currency = (data[i].pair).split(' ');
+        
+        $(header[i]).text(data[i].pair);
+        $(sell[i]).text(data[i].sell);
+        $(sellH4[i]).text('Sell ' + currency[0]);
+        $(buy[i]).text(data[i].buy);
+        $(buyH4[i]).text('Buy ' + currency[0]);
+    }
 }
 
 
@@ -67,12 +65,8 @@ function getData() {
 
 
 let interval = setInterval(function () {
-
-getData();
-//modData()
-
+    getData();
 }, 1000);
-
 
 let timeout = setTimeout(function () {
     clearInterval(interval);

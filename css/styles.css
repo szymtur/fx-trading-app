@@ -107,7 +107,6 @@ body {
     background: #7fd13b;
     color: #ffffff;
     border-color: #00008b;
-
 }
 
 .container .buy:hover::before{
@@ -121,3 +120,32 @@ body {
     font-weight: 500;
 } 
 
+.container .buy h2,
+.container .sell h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 5px;
+} 
+
+.container .triangle-up {
+	width: 0;
+	height: 0;
+    position: absolute;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 23px solid green;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container .triangle-down{
+	width: 0;
+	height: 0;
+    position: absolute;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 23px solid red;
+    left: 50%;
+    transform: translateX(-50%);
+/*    display: none;*/
+}
