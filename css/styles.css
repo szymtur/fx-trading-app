@@ -98,7 +98,7 @@ body {
     border-color: #00008b;
 }
 
-.container .sell:hover::after{
+.container .sell:hover::after {
     background: #ff1f1f;
     border-color: #00008b;
 }
@@ -109,7 +109,7 @@ body {
     border-color: #00008b;
 }
 
-.container .buy:hover::before{
+.container .buy:hover::before {
     background: #7fd13b;
     border-color: #00008b;
 }
@@ -122,10 +122,22 @@ body {
 
 .container .buy h2,
 .container .sell h2 {
-    font-size: 1.3rem;
-    font-weight: 700;
     margin-top: 5px;
 } 
+
+.container .buy .buy-part-1,
+.container .buy .buy-part-3,
+.container .sell .sell-part-1,
+.container .sell .sell-part-3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.container .buy .buy-part-2
+.container .sell .sell-part-2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
 
 .container .triangle-up {
 	width: 0;
@@ -136,9 +148,10 @@ body {
 	border-bottom: 23px solid green;
     left: 50%;
     transform: translateX(-50%);
+    display: none;
 }
 
-.container .triangle-down{
+.container .triangle-down {
 	width: 0;
 	height: 0;
     position: absolute;
@@ -147,5 +160,5 @@ body {
 	border-top: 23px solid red;
     left: 50%;
     transform: translateX(-50%);
-/*    display: none;*/
+    display: none;
 }
