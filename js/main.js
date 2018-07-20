@@ -111,13 +111,15 @@ function postData() {
         let timeout = setTimeout(function () {
             clearInterval(interval);
         }, 120000);
+        
     }).fail(function (error) {
         console.log('connecting ' + error.statusText);
     });
 };
 postData();
 
-// get data from JSON Server
+
+//get data from JSON Server
 function getData(url) {
     $.ajax({
         method: "GET",
@@ -133,6 +135,7 @@ function getData(url) {
     });
 }
 
+
 //put modificated data to JSON Server
 function putData(data) {
     $.ajax({
@@ -145,6 +148,16 @@ function putData(data) {
         console.log('data updated');
     }).fail(function (error) {
         console.log('connecting ' + error.statusText);
+    });
+}
+
+
+//fix :hover for touchscreen
+function fixHover() {
+    $('*').on('touchstart', function () {
+        $(this).trigger('hover');
+    }).on('touchend', function () {
+        $(this).trigger('blur');
     });
 }
 
