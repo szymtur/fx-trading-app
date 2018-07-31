@@ -31,6 +31,8 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 5px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
 .container .header h3 {
@@ -145,7 +147,7 @@ body {
     position: absolute;
 	border-left: 6px solid transparent;
 	border-right: 6px solid transparent;
-	border-bottom: 23px solid green;
+	border-bottom: 23px solid #7fd13b;
     left: 50%;
     transform: translateX(-50%);
     display: none;
@@ -157,7 +159,7 @@ body {
     position: absolute;
 	border-left: 6px solid transparent;
 	border-right: 6px solid transparent;
-	border-top: 23px solid red;
+	border-top: 23px solid #ff1f1f;
     left: 50%;
     transform: translateX(-50%);
     display: none;
