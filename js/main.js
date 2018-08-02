@@ -162,7 +162,7 @@ $(document).ready(function () {
             $(this).trigger('blur');
         });
     }
-    fixHover();
-// (function(l){var i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
+//    fixHover();
+ (function(l){var i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
     
 });
