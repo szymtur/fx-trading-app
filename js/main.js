@@ -155,14 +155,6 @@ $(document).ready(function () {
 
 
     //fix :hover for touchscreen
-    function fixHover() {
-        $('.fix-hover').on('touchstart', function () {
-            $(this).trigger('hover');
-        }).on('touchend', function () {
-            $(this).trigger('blur');
-        });
-    }
-//    fixHover();
- (function(l){var i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
+    (function(l){var i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
     
 });
