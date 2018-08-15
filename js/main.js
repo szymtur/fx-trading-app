@@ -100,7 +100,7 @@ $(document).ready(function () {
             url: "https://api.myjson.com/bins/",
             method: "POST",
             dataType: "json",
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json",
             data: JSON.stringify(currency)
         }).done(function (response) {
             console.log(response.uri);
@@ -129,8 +129,8 @@ $(document).ready(function () {
             dataType: "json"
         }).done(function (response) {
             console.log('connected');
-            changePrice(response);
             insertCurrency(response);
+            changePrice(response);
             putData(response);
         }).fail(function (error) {
             console.log('connecting ' + error.statusText);
@@ -155,6 +155,6 @@ $(document).ready(function () {
 
 
     //fix :hover for touchscreen
-    (function(l){var i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
+    (function(l){let i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
     
 });
