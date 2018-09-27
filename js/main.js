@@ -11,8 +11,11 @@ $(document).ready(function () {
       {"pair":"EUR JPY", "buy":120.589, "sell":120.491}
     ];
 
+    //seting the initial data on website
+    const startData = JSON.parse(JSON.stringify(currency));
+    insertCurrency(startData);
 
-    //change random prices
+    //changing random prices
     function changePrice(data) {
         let array = ['+', '-'];
         let randomBuySign = array[Math.floor(Math.random() * array.length)];
@@ -29,7 +32,7 @@ $(document).ready(function () {
     }
 
 
-    //insert data to website
+    //inserting data to website
     function insertCurrency(data) {
         let header = $('.container').find('.header h3');
         let sellH4 = $('.container').find('.sell h4');
@@ -53,20 +56,20 @@ $(document).ready(function () {
             let buyPriceVal = Number($(buyPrice[i]).text());
 
             //arrows conditions
-            if (buyPriceVal < data[i].buy){
-                $(triangleUp[i]).css('display', 'block');
+            if(buyPriceVal == data[i].buy || buyPriceVal == 0){
+                $(triangleUp[i]).css('display', 'none');
                 $(triangleDown[i]).css('display', 'none');
             }
             else if(buyPriceVal > data[i].buy){
                 $(triangleUp[i]).css('display', 'none');
                 $(triangleDown[i]).css('display', 'block');
             }
-            else if(buyPriceVal == data[i].buy){
-                $(triangleUp[i]).css('display', 'none');
-                $(triangleDown[i]).css('display', 'none');
+            else if(buyPriceVal < data[i].buy){
+                $(triangleUp[i]).css('display', 'block');
+                $(triangleDown[i]).css('display', 'none'); 
             }
 
-            //insert buy price 
+            //inserting buy price 
             let buyPriceFormServer = data[i].buy.toString();
             let buyPricePart1 = buyPriceFormServer.slice(0, buyPriceFormServer.length-3);
             let buyPricePart2 = buyPriceFormServer.slice(buyPriceFormServer.length-3, buyPriceFormServer.length-1);
@@ -76,7 +79,7 @@ $(document).ready(function () {
             $(buyPart2[i]).text(buyPricePart2);
             $(buyPart3[i]).text(buyPricePart3);
 
-            //insert sell price
+            //inserting sell price
             let sellPriceFormServer = data[i].sell.toString();
             let sellPricePart1 = sellPriceFormServer.slice(0, sellPriceFormServer.length-3);
             let sellPricePart2 = sellPriceFormServer.slice(sellPriceFormServer.length-3, sellPriceFormServer.length-1);
@@ -86,7 +89,7 @@ $(document).ready(function () {
             $(sellPart2[i]).text(sellPricePart2);
             $(sellPart3[i]).text(sellPricePart3);
 
-            //insert currency
+            //inserting currency
             $(header[i]).text(data[i].pair);
             $(sellH4[i]).text('Sell ' + currency[0]);
             $(buyH4[i]).text('Buy ' + currency[0]);
@@ -94,8 +97,41 @@ $(document).ready(function () {
     }
 
 
-    function postData() {
-        //send data to JSON Server
+    //geting data from JSON Server
+    function getData(url) {
+        $.ajax({
+            method: "GET",
+            url: url,
+            dataType: "json"
+        }).done(function (response) {
+            console.log('connected');
+            insertCurrency(response);
+            changePrice(response);
+            putData(response);
+        }).fail(function (error) {
+            console.log('connecting ' + error.statusText);
+        });
+    }
+
+
+    //puting modificated data to JSON Server
+    function putData(data) {
+        $.ajax({
+            url: url,
+            method: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(data)
+        }).done(function (response) {
+            console.log('data updated');
+        }).fail(function (error) {
+            console.log('connecting ' + error.statusText);
+        });
+    }
+
+
+    (function postData() {
+        //sending data to JSON Server
         $.ajax({
             url: "https://api.myjson.com/bins/",
             method: "POST",
@@ -117,44 +153,10 @@ $(document).ready(function () {
         }).fail(function (error) {
             console.log('connecting ' + error.statusText);
         });
-    };
-    postData();
+    })();
 
 
-    //get data from JSON Server
-    function getData(url) {
-        $.ajax({
-            method: "GET",
-            url: url,
-            dataType: "json"
-        }).done(function (response) {
-            console.log('connected');
-            insertCurrency(response);
-            changePrice(response);
-            putData(response);
-        }).fail(function (error) {
-            console.log('connecting ' + error.statusText);
-        });
-    }
-
-
-    //put modificated data to JSON Server
-    function putData(data) {
-        $.ajax({
-            url: url,
-            method: "PUT",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(data)
-        }).done(function (response) {
-            console.log('data updated');
-        }).fail(function (error) {
-            console.log('connecting ' + error.statusText);
-        });
-    }
-
-
-    //fix :hover for touchscreen
+    //fixing :hover on touchscreen
     (function(l){let i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
     
 });
