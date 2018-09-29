@@ -24,8 +24,8 @@ $(document).ready(function () {
         let randomBuy = Math.floor(Math.random() * data.length);     
         let randomSell = Math.floor(Math.random() * data.length);     
 
-        let newBuyPrice = eval(`${data[randomBuy].buy} ${randomBuySign} ${(data[randomBuy].buy * 0.1)}`);     
-        let newSellPrice = eval(`${data[randomSell].sell} ${randomSellSign} ${(data[randomSell].sell * 0.1)}`);     
+        let newBuyPrice = eval(data[randomBuy].buy + " " + randomBuySign + " " + data[randomBuy].buy * 0.1);
+        let newSellPrice = eval(data[randomSell].sell + " " + randomSellSign + " " + data[randomSell].sell * 0.1);
 
         data[randomBuy].buy = Number(newBuyPrice.toFixed(5));
         data[randomSell].sell = Number(newSellPrice.toFixed(5));
