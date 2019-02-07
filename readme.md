@@ -1,4 +1,6 @@
 # FX Trading App
+
+### Description:
 Build the following application using HTML, JavaScript & CSS.<br>
 You may use any other non-commercial libraries you wish.<br>
 Note, using the exact colours and dimensions are not important,<br> 
