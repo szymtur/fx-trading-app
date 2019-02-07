@@ -34,3 +34,6 @@ randomly every 1 second to within +/- 10% of the original value.<br>
 If the buy price increases, show a green upwards facing arrow between the two price indicators.<br> 
 If the buy price decreases, show a red downwards facing arrow.<br><br>
 ![](img/md-img-5.png) ![](img/md-img-6.png)
+
+### Link:
+[https://szymtur.github.io/fx-trading-app](https://szymtur.github.io/fx-trading-app)

@@ -12,6 +12,11 @@ body {
     background-size: cover;
 }
 
+.wrapper {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
