@@ -6,10 +6,10 @@ but please try to make your app look similar to the images below.<br>
 
 ### Tasks:
 1. Build this panel as a component:<br><br>
-![Schemat class](img/md-img-1.jpg)
+![](img/md-img-1.png)
 
 2. Now layout multiple panels as follows:<br><br>
-![Schemat class](img/md-img-2.jpg)
+![](img/md-img-2.png)
 
 3. The datasource is:
     ```json
@@ -27,10 +27,10 @@ but please try to make your app look similar to the images below.<br>
 change the colour to red with a blue border.<br> 
 On hovering the mouse over the right price indicator,<br> 
 change the colour to green with a blue border.<br><br>
-![Schemat class](img/md-img-3.jpg) ![Schemat class](img/md-img-4.jpg)
+![](img/md-img-3.png) ![](img/md-img-4.png)
 
 5. To test your app, you should write a test harness that changes the prices<br> 
 randomly every 1 second to within +/- 10% of the original value.<br> 
 If the buy price increases, show a green upwards facing arrow between the two price indicators.<br> 
 If the buy price decreases, show a red downwards facing arrow.<br><br>
-![Schemat class](img/md-img-5.jpg) ![Schemat class](img/md-img-6.jpg)
+![](img/md-img-5.png) ![](img/md-img-6.png)
