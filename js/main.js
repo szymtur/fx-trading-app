@@ -1,17 +1,17 @@
-console.log('the application is worning by 120 seconds - setTimeout = 120000 ms');
+console.log('the application is working for 120 seconds - setTimeout = 120000 ms');
 
 $(document).ready(function () {
 
     const currency = [
-      {"pair":"USD CHF", "buy":0.99143, "sell":0.99043},
-      {"pair":"GBP USD", "buy":1.28495, "sell":1.2836},
-      {"pair":"GBP CHF", "buy":1.27378, "sell":1.27147},
-      {"pair":"EUR SEK", "buy":9.632, "sell":9.6055},
-      {"pair":"USD JPY", "buy":110.467, "sell":110.417},
-      {"pair":"EUR JPY", "buy":120.589, "sell":120.491}
+        {"pair":"USD CHF", "buy":0.99143, "sell":0.99043},
+        {"pair":"GBP USD", "buy":1.28495, "sell":1.2836},
+        {"pair":"GBP CHF", "buy":1.27378, "sell":1.27147},
+        {"pair":"EUR SEK", "buy":9.63200, "sell":9.6055},
+        {"pair":"USD JPY", "buy":110.467, "sell":110.417},
+        {"pair":"EUR JPY", "buy":120.589, "sell":120.491}
     ];
 
-    //seting the initial data on website
+    //setting the initial data on website
     const startData = JSON.parse(JSON.stringify(currency));
     insertCurrency(startData);
 
@@ -69,7 +69,7 @@ $(document).ready(function () {
                 $(triangleDown[i]).css('display', 'none'); 
             }
 
-            //inserting buy price 
+            //inserting buy prices 
             let buyPriceFormServer = data[i].buy.toString();
             let buyPricePart1 = buyPriceFormServer.slice(0, buyPriceFormServer.length-3);
             let buyPricePart2 = buyPriceFormServer.slice(buyPriceFormServer.length-3, buyPriceFormServer.length-1);
@@ -79,7 +79,7 @@ $(document).ready(function () {
             $(buyPart2[i]).text(buyPricePart2);
             $(buyPart3[i]).text(buyPricePart3);
 
-            //inserting sell price
+            //inserting sell prices
             let sellPriceFormServer = data[i].sell.toString();
             let sellPricePart1 = sellPriceFormServer.slice(0, sellPriceFormServer.length-3);
             let sellPricePart2 = sellPriceFormServer.slice(sellPriceFormServer.length-3, sellPriceFormServer.length-1);
@@ -89,7 +89,7 @@ $(document).ready(function () {
             $(sellPart2[i]).text(sellPricePart2);
             $(sellPart3[i]).text(sellPricePart3);
 
-            //inserting currency
+            //inserting currencies
             $(header[i]).text(data[i].pair);
             $(sellH4[i]).text('Sell ' + currency[0]);
             $(buyH4[i]).text('Buy ' + currency[0]);
@@ -130,8 +130,8 @@ $(document).ready(function () {
     }
 
 
+    //sending data to JSON Server
     (function postData() {
-        //sending data to JSON Server
         $.ajax({
             url: "https://api.myjson.com/bins/",
             method: "POST",
