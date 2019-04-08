@@ -13,10 +13,10 @@ body {
     background: linear-gradient(to bottom, rgba(100, 100, 100, 0.1) 0%, rgba(255, 255, 255, 0.5) 70%, #ffffff 90%);
     background-repeat: no-repeat;
     background-size: cover;
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-	        user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
     color: #6e6e6e;
 }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .row:nth-child(3) .container:nth-child(2) {
-    margin-bottom: 20px;    
+    margin-bottom: 20px;
 }
 
 .container .header {
@@ -161,12 +161,12 @@ body {
 .container .sell h4 {
     font-size: 0.7rem;
     font-weight: 500;
-} 
+}
 
 .container .buy h2,
 .container .sell h2 {
     margin-top: 5px;
-} 
+}
 
 .container .buy .buy-part-1,
 .container .buy .buy-part-3,
@@ -183,12 +183,12 @@ body {
 }
 
 .container .triangle-up {
-	width: 0;
-	height: 0;
+    width: 0;
+    height: 0;
     position: absolute;
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-bottom: 23px solid #71ba35;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 23px solid #71ba35;
     left: 50%;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
@@ -197,12 +197,12 @@ body {
 }
 
 .container .triangle-down {
-	width: 0;
-	height: 0;
+    width: 0;
+    height: 0;
     position: absolute;
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-top: 23px solid #ff1f1f;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 23px solid #ff1f1f;
     left: 50%;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
