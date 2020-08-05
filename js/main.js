@@ -1,8 +1,6 @@
-console.log('the application is working for 120 seconds - setTimeout = 120000 ms');
-
 $(document).ready(function () {
 
-    const currency = [
+    const CURRENCY = [
         {"pair":"USD CHF", "buy":0.99143, "sell":0.99043},
         {"pair":"GBP USD", "buy":1.28495, "sell":1.2836},
         {"pair":"GBP CHF", "buy":1.27378, "sell":1.27147},
@@ -11,28 +9,59 @@ $(document).ready(function () {
         {"pair":"EUR JPY", "buy":120.589, "sell":120.491}
     ];
 
-    //setting the initial data on website
-    const startData = JSON.parse(JSON.stringify(currency));
-    insertCurrency(startData);
-
-    //changing random prices
-    function changePrice(data) {
-        let array = ['+', '-'];
-        let randomBuySign = array[Math.floor(Math.random() * array.length)];
-        let randomSellSign = array[Math.floor(Math.random() * array.length)];
-
-        let randomBuy = Math.floor(Math.random() * data.length);     
-        let randomSell = Math.floor(Math.random() * data.length);     
-
-        let newBuyPrice = eval(data[randomBuy].buy + " " + randomBuySign + " " + data[randomBuy].buy * 0.1);
-        let newSellPrice = eval(data[randomSell].sell + " " + randomSellSign + " " + data[randomSell].sell * 0.1);
-
-        data[randomBuy].buy = Number(newBuyPrice.toFixed(5));
-        data[randomSell].sell = Number(newSellPrice.toFixed(5));
+    const OPTIONS = {
+        METHOD: 'GET',
+        URL: 'http://www.currency-fake-data-api.com',
+        CONTENT_TYPE: 'application/json',
+        DATA_TYPE: 'json',
+        TIMEOUT: 1500
     }
 
 
-    //inserting data to website
+    // fake ajax response
+    $.ajax = function(options) {
+        const deferred = $.Deferred();
+
+        if (options.method !== OPTIONS.METHOD) {
+            setTimeout(function() {
+                console.error(options.method, options.url, 400, '(Bad Request)')
+                deferred.reject({status: 400, statusText: 'Bad Request'});
+            }, OPTIONS.TIMEOUT);
+            return deferred.promise();
+        }
+
+        if (options.url !== OPTIONS.URL) {
+            setTimeout(function() {
+                console.error(options.method, options.url, 404, '(Not Found)')
+                deferred.reject({status: 404, statusText: 'Not Found'});
+            }, OPTIONS.TIMEOUT);
+            return deferred.promise();
+        }
+
+        setTimeout(function() {
+            deferred.resolve(CURRENCY);
+        }, OPTIONS.TIMEOUT);
+        return deferred.promise();
+    };
+
+
+    // changing random currency prices
+    function changeRandomPrices(data) {
+        const buyPriceIndex = Math.floor(Math.random() * data.length);
+        const sellPriceIndex = Math.floor(Math.random() * data.length);
+
+        const buyPrice = data[buyPriceIndex].buy;
+        const sellPrice = data[sellPriceIndex].sell;
+
+        const newBuyPrice = Math.random() < 0.5 ? buyPrice + buyPrice * 0.1 : buyPrice - buyPrice * 0.1;
+        const newSellPrice = Math.random() < 0.5 ? sellPrice + sellPrice * 0.1 : sellPrice - sellPrice * 0.1;
+
+        data[buyPriceIndex].buy = Number(newBuyPrice.toFixed(5));
+        data[sellPriceIndex].sell = Number(newSellPrice.toFixed(5));
+    }
+
+
+    // inserting feached data to website
     function insertCurrency(data) {
         let header = $('.container').find('.header h3');
         let sellH4 = $('.container').find('.sell h4');
@@ -52,111 +81,70 @@ $(document).ready(function () {
         let buyPart3 = buyPrice.find('.buy-part-3');
 
         for (let i=0; i<data.length; i++){
-            let currency = (data[i].pair).split(' ');
-            let buyPriceVal = Number($(buyPrice[i]).text());
-
             //arrows conditions
-            if(buyPriceVal == data[i].buy || buyPriceVal == 0){
+            const currentBuyPriceVal = Number($(buyPrice[i]).text());
+            const newBuyPriceVal = data[i].buy;
+
+            if(currentBuyPriceVal == newBuyPriceVal || currentBuyPriceVal == 0) {
                 $(triangleUp[i]).css('display', 'none');
                 $(triangleDown[i]).css('display', 'none');
             }
-            else if(buyPriceVal > data[i].buy){
+            else if(currentBuyPriceVal > newBuyPriceVal) {
                 $(triangleUp[i]).css('display', 'none');
                 $(triangleDown[i]).css('display', 'block');
             }
-            else if(buyPriceVal < data[i].buy){
+            else if(currentBuyPriceVal < newBuyPriceVal) {
                 $(triangleUp[i]).css('display', 'block');
-                $(triangleDown[i]).css('display', 'none'); 
+                $(triangleDown[i]).css('display', 'none');
             }
 
-            //inserting buy prices 
-            let buyPriceFormServer = data[i].buy.toString();
-            let buyPricePart1 = buyPriceFormServer.slice(0, buyPriceFormServer.length-3);
-            let buyPricePart2 = buyPriceFormServer.slice(buyPriceFormServer.length-3, buyPriceFormServer.length-1);
-            let buyPricePart3 = buyPriceFormServer.charAt(buyPriceFormServer.length-1);
+            //inserts buy prices
+            const newBuyPrice = data[i].buy.toString();
 
-            $(buyPart1[i]).text(buyPricePart1);
-            $(buyPart2[i]).text(buyPricePart2);
-            $(buyPart3[i]).text(buyPricePart3);
+            $(buyPart1[i]).text(newBuyPrice.slice(0, newBuyPrice.length-3));
+            $(buyPart2[i]).text(newBuyPrice.slice(newBuyPrice.length-3, newBuyPrice.length-1));
+            $(buyPart3[i]).text(newBuyPrice.charAt(newBuyPrice.length-1));
 
-            //inserting sell prices
-            let sellPriceFormServer = data[i].sell.toString();
-            let sellPricePart1 = sellPriceFormServer.slice(0, sellPriceFormServer.length-3);
-            let sellPricePart2 = sellPriceFormServer.slice(sellPriceFormServer.length-3, sellPriceFormServer.length-1);
-            let sellPricePart3 = sellPriceFormServer.charAt(sellPriceFormServer.length-1);
+            //inserts sell prices
+            const newSellPrice = data[i].sell.toString();
 
-            $(sellPart1[i]).text(sellPricePart1);
-            $(sellPart2[i]).text(sellPricePart2);
-            $(sellPart3[i]).text(sellPricePart3);
+            $(sellPart1[i]).text(newSellPrice.slice(0, newSellPrice.length-3));
+            $(sellPart2[i]).text(newSellPrice.slice(newSellPrice.length-3, newSellPrice.length-1));
+            $(sellPart3[i]).text(newSellPrice.charAt(newSellPrice.length-1));
 
-            //inserting currencies
+            //inserts currencies
+            const currency = data[i].pair.split(' ');
+            
             $(header[i]).text(data[i].pair);
             $(sellH4[i]).text('Sell ' + currency[0]);
             $(buyH4[i]).text('Buy ' + currency[0]);
         }
     }
 
-
-    //geting data from JSON Server
-    function getData(url) {
+    // fetching data from fake api
+    function fetchCurrecyData() {
         $.ajax({
-            method: "GET",
-            url: url,
-            dataType: "json"
+            method: OPTIONS.METHOD,
+            url: OPTIONS.URL,
+            contentType: OPTIONS.CONTENT_TYPE,
+            dataType: OPTIONS.DATA_TYPE
         }).done(function (response) {
-            console.log('connected');
+            console.info('connected to:', OPTIONS.URL);
+            changeRandomPrices(CURRENCY);
             insertCurrency(response);
-            changePrice(response);
-            putData(response);
+            fetchCurrecyData();
         }).fail(function (error) {
-            console.log('connecting ' + error.statusText);
+            console.error('connecting error:', error.status, error.statusText);
         });
     }
 
 
-    //puting modificated data to JSON Server
-    function putData(data) {
-        $.ajax({
-            url: url,
-            method: "PUT",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(data)
-        }).done(function (response) {
-            console.log('data updated');
-        }).fail(function (error) {
-            console.log('connecting ' + error.statusText);
-        });
-    }
+    // setting the initial data on website
+    insertCurrency(CURRENCY);
 
+    // starting application
+    fetchCurrecyData();
 
-    //sending data to JSON Server
-    (function postData() {
-        $.ajax({
-            url: "https://api.myjson.com/bins/",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(currency)
-        }).done(function (response) {
-            console.log(response.uri);
-            url = response.uri;
-
-            let interval = setInterval(function () {
-                getData(url);
-            }, 1000);
-
-            let timeout = setTimeout(function () {
-                clearInterval(interval);
-            }, 120000);
-
-        }).fail(function (error) {
-            console.log('connecting ' + error.statusText);
-        });
-    })();
-
-
-    //fixing :hover on touchscreen
+    // fixing :hover on touchscreen
     (function(l){let i,s={touchend:function(){}};for(i in s)l.addEventListener(i,s)})(document);
-
 });
