@@ -61,7 +61,7 @@ $(document).ready(function () {
     }
 
 
-    // inserting feached data to website
+    // inserting data to the html DOM document
     function insertCurrency(data) {
         let header = $('.container').find('.header h3');
         let sellH4 = $('.container').find('.sell h4');
@@ -80,7 +80,7 @@ $(document).ready(function () {
         let buyPart2 = buyPrice.find('.buy-part-2');
         let buyPart3 = buyPrice.find('.buy-part-3');
 
-        for (let i=0; i<data.length; i++){
+        for (let i=0; i<data.length; i++) {
             //arrows conditions
             const currentBuyPriceVal = Number($(buyPrice[i]).text());
             const newBuyPriceVal = data[i].buy;
